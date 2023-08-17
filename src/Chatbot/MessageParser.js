@@ -8,13 +8,13 @@ parse(message){ //take message to help chatbot what can it do in next step
     console.log("parse is running.");
     const loweracse=message.toLowerCase()
     console.log(this.state)
-    if(loweracse.includes("i want to know")){
+    if(loweracse.includes("hello world")){
       this.actionProvider.helloWorldHandler()
     }else if(loweracse.includes("todos")){
-      this.actionProvider.todosHandler();}
-    /*}else{
-      this.actionProvider.DialogflowHandler();
-    }*/
+      this.actionProvider.todoHandler();
+    }else{
+      this.actionProvider.handleUserInput();
+    }
     
 }
 }

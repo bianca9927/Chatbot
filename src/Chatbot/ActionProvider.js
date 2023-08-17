@@ -1,4 +1,5 @@
-import creaditials from '../dialogflow_creditial.json'
+import { SessionsClient } from '@google-cloud/dialogflow-cx';
+
 class ActionProvider {
   constructor(
    createChatBotMessage,
@@ -6,8 +7,6 @@ class ActionProvider {
    createClientMessage,
    stateRef,
    createCustomMessage,
-   sessionClient,
-   sessionId,
    ...rest
  ) {
    this.createChatBotMessage = createChatBotMessage;
@@ -15,37 +14,46 @@ class ActionProvider {
    this.createClientMessage = createClientMessage;
    this.stateRef = stateRef;
    this.createCustomMessage = createCustomMessage;
-   this.sessionClient = sessionClient;
-  this.sessionId = sessionId;
+   this.dialogflowClient = new SessionsClient();
  }
-/* async DialogflowHandler(message) {
-  const sessionPath = this.sessionClient.projectAgentSessionPath(creaditials.project_id, this.sessionId);
 
+ async handleUserInput(userInput) { //using dialogflow
+  const sessionId = Math.random().toString(36).substring(7);
+  const sessionPath = this.dialogflowClient.projectLocationAgentSessionPath(
+    'yufantest-bmqj',//project id
+    'global',//location
+    '6f2db33e-1f23-462d-a8c8-a5a4adf1f21d',//agentid
+    sessionId//sessionid
+  );
+  const languageCode = 'en'; 
   const request = {
     session: sessionPath,
     queryInput: {
       text: {
-        text: message,
-        languageCode: 'en-US',
+        text: userInput,
       },
+      languageCode,
     },
   };
+  const [response] = await this.dialogflowClient.detectIntent(request);
 
-  try {
-    const responses = await this.sessionClient.detectIntent(request);
-    const result = responses[0].queryResult;
-    const botReply = result.fulfillmentText;
-    const chatMessage = this.createChatBotMessage(botReply);
+  // process response
+  for (const message of response.queryResult.responseMessages) {
+    if (message.text) {
+      const botReply = message.text.text;
+      const chatMessage = this.createChatBotMessage(botReply);
 
-    this.setState((prevState) => ({
-      ...prevState,
-      messages: [...prevState.messages, chatMessage],
-    }));
-  } catch (error) {
-    console.error('Error communicating with Dialogflow:', error);
+      // Refresh the chat interface
+      this.setState((prevState) => ({
+        ...prevState,
+        messages: [...prevState.messages, chatMessage],
+      }));
+    }
   }
+
+  
 }
-*/
+
  helloWorldHandler=()=>{
   const message=this.createChatBotMessage("Ok! Please just wait a few second.")
   this.setChatbotMessage(message)
