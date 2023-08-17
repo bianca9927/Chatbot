@@ -5,7 +5,7 @@ import MessageParser from './Chatbot/MessageParser';
 import config from './Chatbot/config';
 /*import { v4 as uuidv4 } from 'uuid';
 import creditials from'./dialogflow_creditial.json';
-import { SessionsClient } from '@google-cloud/dialogflow';*/
+import { SessionsClient } from '@google-cloud/dialogflow-cx';*/
 
 import './App.css';
 
