@@ -55,7 +55,7 @@ class ActionProvider {
 }
 
  helloWorldHandler=()=>{
-  const message=this.createChatBotMessage("Ok! Please just wait a few second.")
+  const message=this.createChatBotMessage("hello world, default")
   this.setChatbotMessage(message)
  }
 todosHandler=()=>{
