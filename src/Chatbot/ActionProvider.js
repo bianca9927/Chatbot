@@ -54,11 +54,11 @@ class ActionProvider {
   
 }
 
- helloWorldHandler=()=>{
+ helloWorldHandler=async()=>{
   const message=this.createChatBotMessage("hello world, default")
   this.setChatbotMessage(message)
  }
-todosHandler=()=>{
+todosHandler=async ()=>{
   const message=this.createChatBotMessage("Sure.Here's your todos.",{
     widget:"todos",
   });
