@@ -2,8 +2,7 @@ import React from "react";
 //import { createChatBotMessage } from "react-chatbot-kit";
 import BotAvatar from "../component/ChatbotAvatar";
 import Todos from '../component/Todos/Todos' ;
-import ActionProvider from "./ActionProvider";
-import MessageParser from "./MessageParser"; 
+ 
 
 const config = {
   botName:"PriChat",
@@ -31,9 +30,7 @@ const config = {
       mapStateToProps:["todos"],
     }
   ],
-  //Following is only for dialogflow API
-  actionProvider: new ActionProvider(), 
-  messageParser: new MessageParser(), 
+
 };
 
 

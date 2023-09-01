@@ -6,14 +6,13 @@ import config from './Chatbot/config';
 
 
 import './App.css';
-const actionProvider = new ActionProvider();
-const messageParser = new MessageParser();
+
 
 function App() {
   return (
     <div className="App">
      <header className='App-header'>
-    <Chatbot config={config} actionProvider={actionProvider} messageParser={messageParser}></Chatbot>
+    <Chatbot config={config} actionProvider={ActionProvider} messageParser={MessageParser}></Chatbot>
     </header>
     </div>
   );

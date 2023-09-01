@@ -1,5 +1,3 @@
-import { SessionsClient } from '@google-cloud/dialogflow-cx';
-
 class ActionProvider {
   constructor(
    createChatBotMessage,
@@ -14,47 +12,34 @@ class ActionProvider {
    this.createClientMessage = createClientMessage;
    this.stateRef = stateRef;
    this.createCustomMessage = createCustomMessage;
-   this.dialogflowClient = new SessionsClient();
+   
  }
-
- async handleUserInput(userInput) { //using dialogflow
-  const sessionId = Math.random().toString(36).substring(7);
-  const sessionPath = this.dialogflowClient.projectLocationAgentSessionPath(
-    'yufantest-bmqj',//project id
-    'global',//location
-    '6f2db33e-1f23-462d-a8c8-a5a4adf1f21d',//agentid
-    sessionId//sessionid
-  );
-  const languageCode = 'en'; 
-  const request = {
-    session: sessionPath,
-    queryInput: {
-      text: {
-        text: userInput,
-      },
-      languageCode,
-    },
-  };
-  const [response] = await this.dialogflowClient.detectIntent(request);
-
-  // process response
-  for (const message of response.queryResult.responseMessages) {
-    if (message.text) {
-      const botReply = message.text.text;
-      const chatMessage = this.createChatBotMessage(botReply);
-
-      // Refresh the chat interface
-      this.setState((prevState) => ({
-        ...prevState,
-        messages: [...prevState.messages, chatMessage],
-      }));
+ async fetchDialogflowResponse(message) {
+  try {
+    // Make a request to the backend server to get a response from the Dialogflow API
+    const response = await fetch(`http://localhost:3000/detect-intent?queryText=${encodeURIComponent(message)}`);
+    const data = await response.json();
+    console.log('响应数据',data);
+    // Check if the object is defined before accessing the text property
+    if (data && data.queryResult && data.queryResult.text) {
+      // send response in chat
+      const intentResponse = data.queryResult.text; 
+      const chatBotMessage = this.createChatBotMessage(intentResponse);
+      this.setChatbotMessage(chatBotMessage);
+    } else {
+      console.error('Unexpected data structure:', data);
+      const errorMessage = this.createChatBotMessage(`error data structure is unexpected`);
+      this.setChatbotMessage(errorMessage);
     }
+  } catch (error) {
+    console.error('Error fetching data from server:', error);
+    const errorMessage = this.createChatBotMessage(`error：${error.message}`);
+    this.setChatbotMessage(errorMessage);
   }
-
-  
 }
 
- helloWorldHandler=async()=>{
+
+helloWorldHandler=async()=>{
   const message=this.createChatBotMessage("hello world, default")
   this.setChatbotMessage(message)
  }
@@ -65,10 +50,17 @@ todosHandler=async ()=>{
   this.setChatbotMessage(message);
 }
 
+
+
+handleDialogflowResponse(responseText) {
+  const message = this.createChatBotMessage(responseText);
+  this.setChatbotMessage(message);
+}
  setChatbotMessage=(message)=>{
   this.setState(state=>({...state,messages:[...state.messages,message]}))
  }
 }
+
 
 
 export default ActionProvider;
