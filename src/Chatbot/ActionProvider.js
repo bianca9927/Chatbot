@@ -19,7 +19,7 @@ class ActionProvider {
     // Make a request to the backend server to get a response from the Dialogflow API
     const response = await fetch(`http://localhost:3000/detect-intent?queryText=${encodeURIComponent(message)}`);
     const data = await response.json();
-    console.log('响应数据',data);
+    console.log('response:',data);
     // Check if the object is defined before accessing the text property
     if (data && data.queryResult && data.queryResult.text) {
       // send response in chat
