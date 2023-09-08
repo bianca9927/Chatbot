@@ -13,7 +13,7 @@ const buildPath=path.join(__dirname,'build');
 app.use(cors());
 app.use(express.static(buildPath));
 
-async function detectIntent(queryText) {
+async function detectIntent(queryText,sessionId) {//+
     console.log('beginning to run detectIntent function');
   const auth = new GoogleAuth({
     credentials: serviceAccountKey,
@@ -23,13 +23,15 @@ async function detectIntent(queryText) {
   const client = await auth.getClient();
   console.log('catched auth client');
   const projectId = 'yufantest-bmqj';
-  const sessionId = Math.random().toString(36).substring(7);
-  const agentId='6f2db33e-1f23-462d-a8c8-a5a4adf1f21d';
+  //const sessionId = Math.random().toString(36).substring(7);
+  //const agentId='6f2db33e-1f23-462d-a8c8-a5a4adf1f21d';
+  const agentId='eee5b15c-8965-4e7c-8bc5-36b766a00ae6';
   let request;
   console.log('prepared to access token');
   try {
     const accessTokenResponse = await client.getAccessTokenAsync();
     const accessToken = accessTokenResponse.token;
+    console.log('sessionid:',sessionId);
     console.log('catched access token：', accessToken);
     const url=`https://dialogflow.googleapis.com/v3/projects/${projectId}/locations/global/agents/${agentId}/sessions/${sessionId}:detectIntent`;
   
@@ -73,10 +75,10 @@ async function detectIntent(queryText) {
 }
 app.get('/detect-intent', async (req, res) => {
     const queryText = req.query.queryText;
+    const sessionId = req.query.sessionId;//+
     try {
         console.log("processing request");
-      const data = await detectIntent(queryText);
-      console.log('return data from detectIntent:', data);
+      const data = await detectIntent(queryText, sessionId);//+
       res.json(data);
       console.log('Data returned from detectIntent:', data);
     } catch (error) {
