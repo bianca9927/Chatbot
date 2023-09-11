@@ -13,7 +13,7 @@ const buildPath=path.join(__dirname,'build');
 app.use(cors());
 app.use(express.static(buildPath));
 
-async function detectIntent(queryText,sessionId) {//+
+async function detectIntent(queryText,sessionId) {
     console.log('beginning to run detectIntent function');
   const auth = new GoogleAuth({
     credentials: serviceAccountKey,
@@ -23,9 +23,7 @@ async function detectIntent(queryText,sessionId) {//+
   const client = await auth.getClient();
   console.log('catched auth client');
   const projectId = 'yufantest-bmqj';
-  //const sessionId = Math.random().toString(36).substring(7);
-  //const agentId='6f2db33e-1f23-462d-a8c8-a5a4adf1f21d';
-  const agentId='eee5b15c-8965-4e7c-8bc5-36b766a00ae6';
+  const agentId='6f2db33e-1f23-462d-a8c8-a5a4adf1f21d';
   let request;
   console.log('prepared to access token');
   try {
@@ -75,10 +73,10 @@ async function detectIntent(queryText,sessionId) {//+
 }
 app.get('/detect-intent', async (req, res) => {
     const queryText = req.query.queryText;
-    const sessionId = req.query.sessionId;//+
+    const sessionId = req.query.sessionId;
     try {
         console.log("processing request");
-      const data = await detectIntent(queryText, sessionId);//+
+      const data = await detectIntent(queryText, sessionId);
       res.json(data);
       console.log('Data returned from detectIntent:', data);
     } catch (error) {
