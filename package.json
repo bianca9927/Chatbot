@@ -13,6 +13,7 @@
     "axios": "^1.5.0",
     "browserify-fs": "^1.0.0",
     "buffer": "^6.0.3",
+    "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.18.2",
@@ -21,6 +22,7 @@
     "http-proxy-middleware": "^2.0.6",
     "https-browserify": "^1.0.0",
     "jsonwebtoken": "^9.0.1",
+    "memory-cache": "^0.2.0",
     "net": "^1.0.2",
     "os-browserify": "^0.3.0",
     "path": "^0.12.7",
@@ -30,6 +32,7 @@
     "react-chatbot-kit": "^2.1.2",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "request-promise": "^4.2.6",
     "stream": "^0.0.2",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
@@ -45,7 +48,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start:backend": "node server.js"
-  },  
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

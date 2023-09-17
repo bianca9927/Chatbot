@@ -3,10 +3,28 @@
   "description": "prichat",
   "version": "2.0",
   "manifest_version": 3,
+  
   "background": {
+    "service_worker": "background.js"  
   },
+  "content_scripts": [{
+    "matches": ["https://item.taobao.com/item*"],
+    "js": ["content.js"],
+    "run_at": "document_idle",
+    "all_frames": false
+  }],
   "permissions": [
+    "activeTab",
+    "tabs",
+    "contextMenus",
+    "scripting",
+    "storage"
   ],
+  "host_permissions":[
+    "http://34.42.20.237:3000/*",
+    "chrome-extension://cbhidmgkkaobaeabjdfnmcloldgpmpan"
+  ]
+,
   "action": {
     "default_popup": "index.html"
   },
