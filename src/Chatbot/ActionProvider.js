@@ -1,3 +1,4 @@
+import React from 'react';
 class ActionProvider {
   constructor(
    createChatBotMessage,
@@ -5,6 +6,7 @@ class ActionProvider {
    createClientMessage,
    stateRef,
    createCustomMessage,
+   
    //sessionId,
    //productInfo,
    ...rest
@@ -14,6 +16,7 @@ class ActionProvider {
    this.createClientMessage = createClientMessage;
    this.stateRef = stateRef;
    this.createCustomMessage = createCustomMessage;
+   
    //this.sessionId=Math.random().toString(36).substring(7);
    //this.sessionId=Math.random().toString(36).substring(2, 15) + '-' + Math.random().toString(36).substring(2, 15);
   
@@ -24,39 +27,51 @@ class ActionProvider {
 
     
  async fetchDialogflowResponse(message) {
-  let response = null;
   try {
     console.log('Fetching response for message:', message);
 
     // Make a request to the backend server to get a response from the Dialogflow API
-  //  response = await fetch(`http://localhost:3000/detect-intent?queryText=${encodeURIComponent(message)}`);
-  response = await fetch(`http://34.42.20.237:3000/detect-intent?queryText=${encodeURIComponent(message)}`);
+    const response = await fetch(`http://34.42.20.237:3000/detect-intent?queryText=${encodeURIComponent(message)}`);
   
     const data = await response.json();
     console.log('response in frontend:', data);
 
-   // 处理主动消息
-   if (data && data.queryResult && data.queryResult.responseMessages) {
-    const responseMessages = data.queryResult.responseMessages;
-    for (const message of responseMessages) {
-      if (message.platform === 'ACTIONS_ON_GOOGLE') {
-        // 这是 Dialogflow 的主动消息，你可以根据需要执行操作
-        console.log('Received proactive message from Dialogflow:', message);
-        // 在这里执行相关操作，例如更新界面或向用户发送通知
-      } else if (message.text && message.text.text.length > 0) {
-        // 处理普通文本消息
-        console.log('Intent Response:', message.text.text[0]);
-        const intentResponse = message.text.text[0];
-        const chatBotMessage = this.createChatBotMessage(intentResponse);
-        this.setChatbotMessage(chatBotMessage);
+    if (data && data.queryResult && data.queryResult.responseMessages) {
+      const responseMessages = data.queryResult.responseMessages;
+      const messages = []; // 用于存储所有消息
 
-        // 如果消息是 "OK"，则发送第二个请求
-        /*if (intentResponse === 'OK. Please wait a moment. I am getting information from this page now😊') {
-          console.log('Received "OK" response, sending second request...');
-          await this.sendSecondRequest(); // 发送第二个请求
-        }*/
+      for (const message of responseMessages) {
+        if (message.text && message.text.text.length > 0) {
+          // 处理文本消息
+          console.log('Intent Response:', message.text.text[0]);
+          const textMessage = this.createChatBotMessage(message.text.text[0]);
+          messages.push(textMessage);
+        }
+
+        if (message.payload && message.payload.image) {
+          // 处理图片消息
+          console.log("图片信息");
+          const { imageUrl, accessibilityText } = message.payload.image;
+          console.log("打印图片json：", imageUrl, accessibilityText);
+          const imageMessage = this.createChatBotMessage(
+            <img src={imageUrl} alt={accessibilityText} style={{width: '500px', height: '500px'}}/>
+          );
+          //添加widget，并给widget附上两个参数image url 和acc
+          messages.push(imageMessage);
+
+          if (React.isValidElement(imageMessage)) {
+            // imageMessage 是有效的 React 元素
+            // 在这里可以使用它
+          } else {
+            console.error('createImageMessage 返回的不是有效的 React 元素:', imageMessage);
+          }
+        }
       }
-    }
+
+      // 添加所有消息到聊天
+      for (const msg of messages) {
+        this.setChatbotMessage(msg);
+      }
     } else {
       console.error('Unexpected data structure:', data);
       const errorMessage = this.createChatBotMessage('error data structure is unexpected');
@@ -86,6 +101,9 @@ async sendSecondRequest() {
   }
 }
 */
+
+
+
 helloWorldHandler=async()=>{
   const message=this.createChatBotMessage("hello world, default")
   this.setChatbotMessage(message)

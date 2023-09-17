@@ -21,8 +21,8 @@
     "storage"
   ],
   "host_permissions":[
-    "http://34.42.20.237:3000/*",
-    "chrome-extension://cbhidmgkkaobaeabjdfnmcloldgpmpan"
+    "http://34.42.20.237:3000/*"
+    
   ]
 ,
   "action": {
