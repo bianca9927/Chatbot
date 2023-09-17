@@ -54,7 +54,7 @@ class ActionProvider {
           const { imageUrl, accessibilityText } = message.payload.image;
           console.log("打印图片json：", imageUrl, accessibilityText);
           const imageMessage = this.createChatBotMessage(
-            <img src={imageUrl} alt={accessibilityText} style={{width: '500px', height: '500px'}}/>
+            <img src={imageUrl} alt={accessibilityText} style={{width: '200px', height: '400px'}}/>
           );
           //添加widget，并给widget附上两个参数image url 和acc
           messages.push(imageMessage);
