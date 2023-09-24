@@ -10,7 +10,7 @@ const config = {
   initialMessages: [createChatBotMessage(`Hello! I am Prichat! I'm an assistant for your privacy😊`),createChatBotMessage(`Do you want to know the privacy policy of current product on shopping website?`)],//for dialogflow
   //initialMessages:[createChatBotMessage(`Hello! I'm PriChat! How can I help you?`)],
   customComponents:{
-    BotAvatar:(props)=><BotAvatar{...props}/>
+    botAvatar:(props)=><BotAvatar{...props}/>
   },
   customStyles:{
     
