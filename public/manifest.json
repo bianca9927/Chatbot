@@ -29,6 +29,6 @@
     "default_popup": "index.html"
   },
   "icons": {
-    "192": "logo192.png"
+    "192": "extension_logo.png"
   }
 }

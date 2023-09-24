@@ -47,14 +47,24 @@ class ActionProvider {
           const textMessage = this.createChatBotMessage(message.text.text[0]);
           messages.push(textMessage);
         }
-
+        if (message.payload && message.payload.text && message.payload.text.length > 0) {
+          // 获取消息数组
+          const textMessages = message.payload.text;
+          
+          // 遍历并推送每条消息到 messages 数组中
+          textMessages.forEach((text) => {
+            const textMessage = this.createChatBotMessage(text);
+            messages.push(textMessage);
+          });
+        }
+        
         if (message.payload && message.payload.image) {
           // 处理图片消息
           console.log("图片信息");
           const { imageUrl, accessibilityText } = message.payload.image;
           console.log("打印图片json：", imageUrl, accessibilityText);
           const imageMessage = this.createChatBotMessage(
-            <img src={imageUrl} alt={accessibilityText} style={{width: '200px', height: '400px'}}/>
+            <img src={imageUrl} alt={accessibilityText} style={{maxWidth: '400px', maxHeight: '200px', width: '100%',height: 'auto'}}/>      
           );
           //添加widget，并给widget附上两个参数image url 和acc
           messages.push(imageMessage);
@@ -74,12 +84,12 @@ class ActionProvider {
       }
     } else {
       console.error('Unexpected data structure:', data);
-      const errorMessage = this.createChatBotMessage('error data structure is unexpected');
+      const errorMessage = this.createChatBotMessage('Sorry, I can not parse your data. Could you refresh shopping website and reopen me?');
       this.setChatbotMessage(errorMessage);
     }
   } catch (error) {
     console.error('Error fetching data from server:', error);
-    const errorMessage = this.createChatBotMessage(`error：${error.message}`);
+    const errorMessage = this.createChatBotMessage(`I don't know how to find products on all websites yet. Please follow the study instructions so that I am able to show you what I'm able to do😊`);
     this.setChatbotMessage(errorMessage);
   }
 }
