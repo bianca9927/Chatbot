@@ -1,8 +1,6 @@
 import React from "react";
 import { createChatBotMessage } from "react-chatbot-kit";
 import BotAvatar from "../component/ChatbotAvatar";
-import Todos from '../component/Todos/Todos' ;
-import ImageMessage from '../component/ImageMessage' ;
  
 
 const config = {
@@ -24,18 +22,7 @@ const config = {
   state:{ 
     todos:[]
   },
-  widgets:[
-    {
-      widgetName:"todos",
-      widgetFunc:(props)=><Todos {...props}/>,
-      mapStateToProps:["todos"],
-    },
-    {
-      widgetName: "imageMessage",
-      widgetFunc: (props) => <ImageMessage {...props} />,
-      props: ['imageUrl', 'imageAlt'], 
-    },
-  ],
+
 
 };
 
