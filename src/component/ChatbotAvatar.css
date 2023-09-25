@@ -1,0 +1,12 @@
+.prichat {
+    width: 15px;
+    height:15px;
+    border-radius:50%;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    font-size:0.9rem;
+    background-color:green;
+    color:white;
+    margin-right: 5px;
+}
