@@ -3,7 +3,7 @@ PriChat is a chatbot extension for helping users learn privacy-relevant informat
 
 # How to use this code?
 This chatbot extension can run on Edge and Chrome. 
-- If you want to use this extension. You can upload the build folder in both browserS under develop mode of extension.
+- If you want to use this extension. You can upload the build folder in both browsers under develop mode of extension.
 - If you want to develop this chatbot extension, you can check HOW TO DEVELOP BASED ON THIS CODE👇.
 
 
