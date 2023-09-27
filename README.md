@@ -8,7 +8,7 @@ This chatbot extension can run on Edge and Chrome.
 
 
 # How to develop based on this code?
-If you want to run the code, please enter in console: npm run build.
+If you want to run the code or modify it, please enter in console: npm run build. and then build folder will be updated.
 This chatbot extension is based on Create React App framework. 
 - If you want to change code related to extension, you need to modify public folder. Public folder is the code related to extension, including manifest.json, content.js, background.js, etc.
 - If you want to change what are shown in popup of extension, you need to modify src folder. Src folder is a react folder, including App.js and chatbot component using NPM package "react-chatbot-kit".
