@@ -1,9 +1,12 @@
+![image](https://github.com/bianca9927/Chatbot/assets/57630575/abf2bc9e-439a-4d37-9720-810cf853ff1e)
+
 # Introduction
 PriChat is a chatbot extension for helping users learn privacy-relevant information of IoT devices during online shopping. We create a chatbot extension framework used it in Taobao shopping website and used Dialogflow CX to make AI smart. Our privacy-relevant information came from the content from Mozilla's privacyNOTincluded as privacy topics.
 
+
 # How to use this code?
 This chatbot extension can run on Edge and Chrome. 
-- If you want to use this extension. You can upload the build folder in both browsers under develop mode of extension.
+- If you want to use this extension. You can upload the build folder in both browsers under develop mode of extension. We chose Amazon echo dot from Taobao shopping website. (https://item.taobao.com/item.htm?spm=a21n57.1.0.0.7532523coqeUa7&id=645689272517&ns=1&abbucket=2#detail) You can open this extension when you open this shopping website.
 - If you want to develop this chatbot extension, you can check HOW TO DEVELOP BASED ON THIS CODE👇.
 
 
