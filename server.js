@@ -42,7 +42,7 @@ async function detectIntent(queryText) {
   console.log('prepared to catch auth client');
   const client = await auth.getClient();
   console.log('catched auth client');
-  const projectId = 'yufantest-bmqj';
+  const projectId = 'yufantest-bmqj'; 
   const agentId='6f2db33e-1f23-462d-a8c8-a5a4adf1f21d';
   let request;
   console.log('prepared to access token');
